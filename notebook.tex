@@ -1,0 +1,733 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Tugas | Naive Bayyes - Classifiers}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{klasifikasi artikel /
+paragraf}\label{klasifikasi-artikel-paragraf}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}203}]:} \PY{n}{train\PYZus{}test} \PY{o}{=} \PY{p}{[}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I love this sandwich.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{this is an amazing place!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I feel very good about these beers.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{this is my best work.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{what an awesome view}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{net}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{i do not like this restaurant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{net}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{i am tired of this stuff.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{net}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{i can}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{t deal with this}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{he is my sworn enemy!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{my boss is horrible}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+          \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}204}]:} \PY{k+kn}{from} \PY{n+nn}{textblob}\PY{n+nn}{.}\PY{n+nn}{classifiers} \PY{k}{import} \PY{n}{NaiveBayesClassifier}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}205}]:} \PY{n}{cl} \PY{o}{=} \PY{n}{NaiveBayesClassifier}\PY{p}{(}\PY{n}{train\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Kadar Sentimen Negatif}\label{kadar-sentimen-negatif}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}206}]:} \PY{k+kn}{from} \PY{n+nn}{textblob} \PY{k}{import} \PY{n}{TextBlob}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}207}]:} \PY{n}{blob} \PY{o}{=} \PY{n}{TextBlob}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The beer is good. But the hangover is horrible.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{classifier} \PY{o}{=} \PY{n}{cl}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{n}{blob}\PY{o}{.}\PY{n}{classify}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}208}]:} 'neg'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}209}]:} \PY{n}{val\PYZus{}sen} \PY{o}{=} \PY{n}{cl}\PY{o}{.}\PY{n}{prob\PYZus{}classify}\PY{p}{(}\PY{n}{blob}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}210}]:} \PY{n+nb}{round}\PY{p}{(}\PY{n}{val\PYZus{}sen}\PY{o}{.}\PY{n}{prob}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}210}]:} 0.14
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}211}]:} \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{blob}\PY{o}{.}\PY{n}{sentences} \PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+              \PY{n}{a} \PY{o}{=} \PY{n}{s}\PY{o}{.}\PY{n}{classify}\PY{p}{(}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+              \PY{n}{val\PYZus{}sen2}\PY{o}{=} \PY{n}{cl}\PY{o}{.}\PY{n}{prob\PYZus{}classify}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{val\PYZus{}sen2}\PY{o}{.}\PY{n}{prob}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The beer is good.
+pos
+0.14
+But the hangover is horrible.
+neg
+0.29
+
+    \end{Verbatim}
+
+    \subsubsection{\# PrabowoPresiden}\label{prabowopresiden}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}212}]:} \PY{n}{data\PYZus{}set} \PY{o}{=} \PY{p}{[}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Said Aqil Siraj merasa ditampar sama Osama, hingga marah dan minta Kerajaan Arab segera memulangkanya dan mengganti dg yg baru. Sekalian dong... nitip pulangkan segera Jokowi ke Solo! \PYZsh{}2019GantiPresiden \PYZsh{}2019PrabowoPresiden}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Saya hadir di kunjungan ke Balikpapan 25 Nov. Saya bukan anggota partai. Ribuan hadir banyakan simpatisan. Pak PS mencontohkan soal ketimpangan sosial dan menyebut : }\PY{l+s+se}{\PYZbs{}\PYZdq{}}\PY{l+s+s2}{tampang2 kayak kalian ini ..}\PY{l+s+se}{\PYZbs{}\PYZdq{}}\PY{l+s+s2}{. Semua terbahak dan nggak baper. Malah berteriak \PYZsh{}2019PrabowoPresiden ! 😎 }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Love you full Presiden Jokowi \PYZsh{}Jokowi2Periode \PYZsh{}Jokowi2Periode \PYZsh{}jokowi2periode \PYZsh{}2019tetapjokowi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2019 PRESIDEN BARU INSYAA ALLAH, USIR SELURUH TKA CINA KAFIR KOMUNIS DI SELURUH INDONESIA HARGA MATI!!!!DEMI MASYARAKAT ADIL \PYZam{} MAKMUR LEPAS DARI ANCAMAN CINA KAFIR KOMUNIS!!!YG SANGAT NAFSU MAU JAJAH INDON!!!!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pak @Jokowi menjadi presiden pertama yang berani tenggelamkan kapal pencuri ikan di Laut Indonesia. \PYZsh{}HAMuntukKehidupan \PYZsh{}01IndonesiaMaju \PYZsh{}2019KalahLagi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Goblok, presiden di indonesia ini kalo ngomong memang harus dipikir dulu lah, soalnya di indonesia banyak orang pintar yang tahynya memutarbalikkan fakta.... Emang lo uda buat apa buat indonesiaaaaa. Hidup jokowi..}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sering dibohongi. Sering dikhianati. Tapi. Tetap sabar. Tiada henti ikhtiar membela rakyat, berjuang mewujudkan Indonesia \PYZsh{}AdilDanMakmur. Selamat! Anda Pak @prabowo yg kami butuhkan. Dan akan kami pilih utk menjadi Presiden RI Ke 8. \PYZsh{}2019GantiPresiden. \PYZsh{}2019PrabowoSandi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Terserah lo mau ngomong apa, faktanya Joko Widodo itu Presiden RI sekaligus panglima tertinggi Tentara Nasional Indonesia. Sedang wowo ga lebih dari seorang tentara yg pangkatnya dikatrol krn mantu suharto, dan saat ini statusnya pecatan tentara. 😂😂😂😂😂}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pemilu serentak 2019 Presiden Jokowi mengajak rakyat Indonesia menyambut pesta demokrasi itu dengan kegembiraan, antusiasme yang tinggi, serta kedewasaan politik yang semakin matang. \PYZsh{}SetujuPemiluBersih}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hadir MPD GRPG JAMBI, BENGKULU, LAMPUNG, KALTENG. DKI, JABAR Dan BANTEN... RELAWAN GRPG SIAP MEMENANGKAN BAPAK PRABOWO PRESIDEN Di 2019. }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{saya benar\PYZhy{}benar menginginkan Papua yang damai dan sejujurnya para anggota. OPM ataupun simpatisannya selalu menentang usaha\PYZhy{}usaha menuju Papua yang damai. \PYZsh{}westpapua \PYZsh{}freewestpapua \PYZsh{}letwestpapuavote \PYZsh{}fwpc. \PYZsh{}LawanGerakanSeparatis West Papua. \PYZsh{}2019GantiPresiden}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pilpres harus tetap santun.. mari doakan pak kyai segera sembuh. jasa beliau dalam kasus penistaan agama perlu kita apresiasi.  salam hormat pak kyai.. semoga Allah berikan berkah di hari tuamu.. aamiin saya pilih Prabowo\PYZhy{}Sandiaga Uno. \PYZsh{}2019GantiPresiden }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Insya Alloh dengan ijin Allah dan Ridho Allah \PYZsh{}2019GantiPresiden \PYZsh{}2019PrabowoSandiMenang \PYZsh{}2019PrabowoPresiden \PYZsh{}IndonesiaAdilMakmur dan aman sentosa berdasarkan Pantjasila dan UUD1945 serta tegak Nkri tanpa komunis dan kroni2nya seperti aseng dan pengkianat NKRI juga JIL, Syi}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ah}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Saya ga ada kaitannya sama cebong2an, urusan saya di DPRD nanti sama gubernur DKI, dan saya tetep \PYZsh{}2019GantiPresiden ogah ama yg plangah plongo tukang kibul \PYZam{} saya bukan cebong dungu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cebong juga takut dg kata }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Komunis}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{PKI}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{, seakan\PYZhy{}akan diantara mereka memang ada yg berafiliasi dg ideologi tersebut..  \PYZsh{}2019GantiPresiden}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Aku \PYZsh{}SetujuPemiluBersih agar roda perekonomian tetap jalan dan stabil, kita semua rakyat Indonesia dapat jalani hidup keseharian dengan damai dan rukun}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Salah satu upaya menciptakan Pemilu yang damai itu, berkampanye dengan cara fokus pada hal yang positif\PYZhy{}positif aja,,,  Siapapun yang terpilih, akan memberikan yang terbaik untuk Indonesia tercinta ini. \PYZsh{}SetujuPemiluBersih}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Kita semua \PYZsh{}SetujuPemiluBersih untuk Indonesia Maju. Damai itu indah. }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pemilu yang bersih akan melahirkan pemimpin bersih, pemimpin bersih akan menjalankan pemerintahan bersih \PYZsh{}SetujuPemiluBersih}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Karena itu, berbagai simpul masyarakat yang peduli terhadap terciptanya pemilu yang jujur dan bersih perlu menunjukkan peran serta aktif untuk ikut mengupayakan sosialisasi dan peningkatan kemampuan pengawasan oleh rakyat.\PYZsh{}SetujuPemiluBersih}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ini berarti mayoritas masyarakat menginginkan agar pemilu harus menjadi kontestasi politik yang bersih. }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maka dari itu, faktor transparansi, akuntabilitas dan kejujuran menjadi harga mati, jika semua pihak menginginkan Pemilu berlangsung secara bersih dan demokratis. \PYZsh{}SetujuPemiluBersih}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{JkW orang baik, saya yakin itu! Ada kiasan : cerdik bagaikan ular tulus bagai merpati! Politik membuat pak JkW harus seperti ular, tapi hatinya tetap tulus buat rakyat Indonesia! Singkirkan egomu dan dukung terus. \PYZsh{}Jokowi2Periode}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Kepintaran, kecerdasan, kewibawaan mrpkn salah 1 modal utk menegakkan Indonesia d International Bandingkan mn yg menguasai masalah \PYZam{} mana yg melemparkan masalah .. Rakyat cerdas akan pandai memilih \PYZsh{}Jokowi2Periode  \PYZsh{}JokowiMembangunIndonesia  \PYZsh{}2019GantiPresiden  \PYZsh{}2019PrabowoSandi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hebat ,, Jaman Jokowi semua diperhatikan Tak luput para Veteran pun mendapat perhatian dgn menaikan tunjangan agar mereka dapat menikmati dn merasakan kesejahtraan dimasa tua nya kurang apa lagi dari jokowi ..  \PYZsh{}Jokowi2Periode  \PYZsh{}JokowiMarufAmin2019}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}213}]:} \PY{n}{train\PYZus{}set} \PY{o}{=} \PY{p}{[}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sudah terbukti 4 tahun menjabat, terjadi pemerataan pembangunan di Indonesia}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mari kita ciptakan pemilu yang adil dan bersih}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prabowo siap menang di pilpres 2019}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{indonesia butuh pembaharuan, 2019 butuh presiden baru}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{jangan ada lagi perpecahan di bumi Indonesia, bersatu kita teguh}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prabowo ternyata antek asing}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{jokowi presiden lagi 2019 \PYZsh{}jokowilagi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rakyat indonesia siap dukung jokowi memimpin lagi di tahun 2019 \PYZsh{}jokowi2periode}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prabowo dinilai gampang tersulut emosi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sandy tidak memiliki etika saat mengunjungi makam beberapa waktu lalu \PYZsh{}jokowimaruf2019}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{reuni 212 terselubung kampanye prabowo\PYZhy{}sandy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prabowo untuk RI 2019}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{muhammadiyah siap dukung prabowo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kita awasi bersama pemilu 2019}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kita doakan pemilu 2019 berjalan dengan aman dan tertib}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tim emak\PYZhy{}emak indonesia siap dukung sandy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{presiden jokowi membuktikan tempe di pasar tidak lebih tipis dibandingkan kartu atm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prabowo dinilai tidak akan bisa memimpin indonesia, memimpin keluarga saja gagal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prabowo jalin silaturahmi dengan warga di reuni 212}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{saya akan tetap dukung prabowo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prabowo bukan antek asing}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{masyarakat indonesia berharap yang terbaik untuk hasil pemilu 2019}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kpu memastikan pemilu 2019 akan berjalan dengan lancar dan tertib}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{masyarakat indonesia dihimbau agar tidak mudah tersulut emosi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mahasiswa pulau jawa bersatu untuk mengawasi pemilu 2019}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kami dukung kpu \PYZsh{}pemiludamai \PYZsh{}pemilubersih}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pemerintahan jokowi berhasil meningkatkan perekonomian indonesia}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rakyat indonesia ingin ganti presiden}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{politisi partai pdip berharap jokowi dan maruf menjadi presiden di tahun 2019}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{komunitas silat indonesia siap memenangkan prabowo dan sandy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pasangan prabowo sandy didukung oleh kaum muda bandung}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+              \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{we stand for kpu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}214}]:} \PY{n}{cl} \PY{o}{=} \PY{n}{NaiveBayesClassifier}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}215}]:} \PY{n}{cl}\PY{o}{.}\PY{n}{classify}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}2019prabowopresiden}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}215}]:} 'pos'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}216}]:} \PY{n}{cl}\PY{o}{.}\PY{n}{classify}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}jokowi2periode}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}216}]:} 'neg'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{c+c1}{\PYZsh{}probabilitas distirbusi atau kadar sentiment}
+          \PY{n}{prob\PYZus{}dist\PYZus{}word1} \PY{o}{=} \PY{n}{cl}\PY{o}{.}\PY{n}{prob\PYZus{}classify}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{timses nomor 2 siap memenangkan prabowo sandy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{n}{prob\PYZus{}dist\PYZus{}word1}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}218}]:} 'pos'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{c+c1}{\PYZsh{} using round function}
+          \PY{n+nb}{round}\PY{p}{(}\PY{n}{prob\PYZus{}dist\PYZus{}word1}\PY{o}{.}\PY{n}{prob}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}219}]:} 0.999
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{n+nb}{round}\PY{p}{(}\PY{n}{prob\PYZus{}dist\PYZus{}word1}\PY{o}{.}\PY{n}{prob}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}220}]:} 0.001
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{n+nb}{round}\PY{p}{(}\PY{n}{prob\PYZus{}dist\PYZus{}word1}\PY{o}{.}\PY{n}{prob}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}221}]:} 0.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{n}{prob\PYZus{}dist\PYZus{}word2} \PY{o}{=} \PY{n}{cl}\PY{o}{.}\PY{n}{prob\PYZus{}classify}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{jokowi mendapatkan hati masyarakat karena berhasil menaikkan pendapatan negara}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{n}{prob\PYZus{}dist\PYZus{}word2}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}223}]:} 'neg'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{n+nb}{round}\PY{p}{(}\PY{n}{prob\PYZus{}dist\PYZus{}word2}\PY{o}{.}\PY{n}{prob}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pos}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}224}]:} 0.04
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{n+nb}{round}\PY{p}{(}\PY{n}{prob\PYZus{}dist\PYZus{}word2}\PY{o}{.}\PY{n}{prob}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}225}]:} 0.903
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{n+nb}{round}\PY{p}{(}\PY{n}{prob\PYZus{}dist\PYZus{}word2}\PY{o}{.}\PY{n}{prob}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{net}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}226}]:} 0.057
+\end{Verbatim}
+            
+    \subsection{Sentimen Analysis}\label{sentimen-analysis}
+
+    \paragraph{polarity negatif = komentar (sentimen)
+negatif}\label{polarity-negatif-komentar-sentimen-negatif}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{k+kn}{from} \PY{n+nn}{textblob} \PY{k}{import} \PY{n}{TextBlob} \PY{k}{as} \PY{n}{tb}
+          \PY{k+kn}{import} \PY{n+nn}{re}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}228}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} using re.sub function =\PYZgt{} re.sub(pattern,repl,string)}
+          \PY{n}{cleanText} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{sent} \PY{o+ow}{in} \PY{n}{data\PYZus{}set} \PY{p}{:}
+              \PY{n}{clean\PYZus{}result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(?\PYZlt{}!}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{d)[,;:@](?!}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{d)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sent}\PY{p}{)}
+              \PY{n}{cleanText}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{clean\PYZus{}result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}229}]:} \PY{n}{cleanText}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}229}]:} ['Said Aqil Siraj merasa ditampar sama Osama hingga marah dan minta Kerajaan Arab segera memulangkanya dan mengganti dg yg baru. Sekalian dong{\ldots} nitip pulangkan segera Jokowi ke Solo! \#2019GantiPresiden \#2019PrabowoPresiden',
+           'Saya hadir di kunjungan ke Balikpapan 25 Nov. Saya bukan anggota partai. Ribuan hadir banyakan simpatisan. Pak PS mencontohkan soal ketimpangan sosial dan menyebut  "tampang2 kayak kalian ini ..". Semua terbahak dan nggak baper. Malah berteriak \#2019PrabowoPresiden ! 😎 ',
+           'Love you full Presiden Jokowi \#Jokowi2Periode \#Jokowi2Periode \#jokowi2periode \#2019tetapjokowi',
+           '2019 PRESIDEN BARU INSYAA ALLAH USIR SELURUH TKA CINA KAFIR KOMUNIS DI SELURUH INDONESIA HARGA MATI!!!!DEMI MASYARAKAT ADIL \& MAKMUR LEPAS DARI ANCAMAN CINA KAFIR KOMUNIS!!!YG SANGAT NAFSU MAU JAJAH INDON!!!!',
+           'Pak Jokowi menjadi presiden pertama yang berani tenggelamkan kapal pencuri ikan di Laut Indonesia. \#HAMuntukKehidupan \#01IndonesiaMaju \#2019KalahLagi',
+           'Goblok presiden di indonesia ini kalo ngomong memang harus dipikir dulu lah soalnya di indonesia banyak orang pintar yang tahynya memutarbalikkan fakta{\ldots} Emang lo uda buat apa buat indonesiaaaaa. Hidup jokowi..',
+           'Sering dibohongi. Sering dikhianati. Tapi. Tetap sabar. Tiada henti ikhtiar membela rakyat berjuang mewujudkan Indonesia \#AdilDanMakmur. Selamat! Anda Pak prabowo yg kami butuhkan. Dan akan kami pilih utk menjadi Presiden RI Ke 8. \#2019GantiPresiden. \#2019PrabowoSandi',
+           'Terserah lo mau ngomong apa faktanya Joko Widodo itu Presiden RI sekaligus panglima tertinggi Tentara Nasional Indonesia. Sedang wowo ga lebih dari seorang tentara yg pangkatnya dikatrol krn mantu suharto dan saat ini statusnya pecatan tentara. 😂😂😂😂😂',
+           'Pemilu serentak 2019 Presiden Jokowi mengajak rakyat Indonesia menyambut pesta demokrasi itu dengan kegembiraan antusiasme yang tinggi serta kedewasaan politik yang semakin matang. \#SetujuPemiluBersih',
+           'Hadir MPD GRPG JAMBI BENGKULU LAMPUNG KALTENG. DKI JABAR Dan BANTEN{\ldots} RELAWAN GRPG SIAP MEMENANGKAN BAPAK PRABOWO PRESIDEN Di 2019. ',
+           'saya benar-benar menginginkan Papua yang damai dan sejujurnya para anggota. OPM ataupun simpatisannya selalu menentang usaha-usaha menuju Papua yang damai. \#westpapua \#freewestpapua \#letwestpapuavote \#fwpc. \#LawanGerakanSeparatis West Papua. \#2019GantiPresiden',
+           'pilpres harus tetap santun.. mari doakan pak kyai segera sembuh. jasa beliau dalam kasus penistaan agama perlu kita apresiasi.  salam hormat pak kyai.. semoga Allah berikan berkah di hari tuamu.. aamiin saya pilih Prabowo-Sandiaga Uno. \#2019GantiPresiden ',
+           "Insya Alloh dengan ijin Allah dan Ridho Allah \#2019GantiPresiden \#2019PrabowoSandiMenang \#2019PrabowoPresiden \#IndonesiaAdilMakmur dan aman sentosa berdasarkan Pantjasila dan UUD1945 serta tegak Nkri tanpa komunis dan kroni2nya seperti aseng dan pengkianat NKRI juga JIL Syi'ah",
+           'Saya ga ada kaitannya sama cebong2an urusan saya di DPRD nanti sama gubernur DKI dan saya tetep \#2019GantiPresiden ogah ama yg plangah plongo tukang kibul \& saya bukan cebong dungu',
+           "Cebong juga takut dg kata 'Komunis' 'PKI' seakan-akan diantara mereka memang ada yg berafiliasi dg ideologi tersebut..  \#2019GantiPresiden",
+           'Aku \#SetujuPemiluBersih agar roda perekonomian tetap jalan dan stabil kita semua rakyat Indonesia dapat jalani hidup keseharian dengan damai dan rukun',
+           'Salah satu upaya menciptakan Pemilu yang damai itu berkampanye dengan cara fokus pada hal yang positif-positif aja  Siapapun yang terpilih akan memberikan yang terbaik untuk Indonesia tercinta ini. \#SetujuPemiluBersih',
+           'Kita semua \#SetujuPemiluBersih untuk Indonesia Maju. Damai itu indah. ',
+           'Pemilu yang bersih akan melahirkan pemimpin bersih pemimpin bersih akan menjalankan pemerintahan bersih \#SetujuPemiluBersih',
+           'Karena itu berbagai simpul masyarakat yang peduli terhadap terciptanya pemilu yang jujur dan bersih perlu menunjukkan peran serta aktif untuk ikut mengupayakan sosialisasi dan peningkatan kemampuan pengawasan oleh rakyat.\#SetujuPemiluBersih',
+           'Ini berarti mayoritas masyarakat menginginkan agar pemilu harus menjadi kontestasi politik yang bersih. ',
+           'Maka dari itu faktor transparansi akuntabilitas dan kejujuran menjadi harga mati jika semua pihak menginginkan Pemilu berlangsung secara bersih dan demokratis. \#SetujuPemiluBersih',
+           'JkW orang baik saya yakin itu! Ada kiasan  cerdik bagaikan ular tulus bagai merpati! Politik membuat pak JkW harus seperti ular tapi hatinya tetap tulus buat rakyat Indonesia! Singkirkan egomu dan dukung terus. \#Jokowi2Periode',
+           'Kepintaran kecerdasan kewibawaan mrpkn salah 1 modal utk menegakkan Indonesia d International Bandingkan mn yg menguasai masalah \& mana yg melemparkan masalah .. Rakyat cerdas akan pandai memilih \#Jokowi2Periode  \#JokowiMembangunIndonesia  \#2019GantiPresiden  \#2019PrabowoSandi',
+           'Hebat  Jaman Jokowi semua diperhatikan Tak luput para Veteran pun mendapat perhatian dgn menaikan tunjangan agar mereka dapat menikmati dn merasakan kesejahtraan dimasa tua nya kurang apa lagi dari jokowi ..  \#Jokowi2Periode  \#JokowiMarufAmin2019']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{n}{sentimen\PYZus{}sent} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{pos} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{neg} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{net} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+          
+          \PY{k}{for} \PY{n}{sent} \PY{o+ow}{in} \PY{n}{cleanText} \PY{p}{:}
+              \PY{n}{sentence} \PY{o}{=} \PY{n}{cl}\PY{o}{.}\PY{n}{classify}\PY{p}{(}\PY{n}{sent}\PY{p}{)}\PY{p}{;}
+              \PY{k}{if} \PY{p}{(}\PY{n}{sentence} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{p}{:}
+                  \PY{n}{pos} \PY{o}{+}\PY{o}{=} \PY{n}{sent}
+                  \PY{n}{sentimen\PYZus{}sent}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{elif} \PY{p}{(}\PY{n}{sentence} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{p}{:}
+                  \PY{n}{neg} \PY{o}{+}\PY{o}{=} \PY{n}{sent}
+                  \PY{n}{sentimen\PYZus{}sent}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{else} \PY{p}{:}
+                  \PY{n}{net} \PY{o}{+}\PY{o}{=} \PY{n}{sent}
+                  \PY{n}{sentimen\PYZus{}sent}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{net}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{val\PYZus{}sen2} \PY{o}{=} \PY{n}{cl}\PY{o}{.}\PY{n}{prob\PYZus{}classify}\PY{p}{(}\PY{n}{sent}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}248}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{val\PYZus{}sen2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<ProbDist with 3 samples>
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}258}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{sentimen\PYZus{}sent}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['pos', 'pos', 'neg', 'pos', 'neg', 'neg', 'pos', 'neg', 'net', 'pos', 'net', 'pos', 'net', 'pos', 'pos', 'net', 'net', 'net', 'net', 'net', 'net', 'net', 'pos', 'neg', 'neg']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}249}]:} \PY{n}{pos}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}249}]:} 'Said Aqil Siraj merasa ditampar sama Osama hingga marah dan minta Kerajaan Arab segera memulangkanya dan mengganti dg yg baru. Sekalian dong{\ldots} nitip pulangkan segera Jokowi ke Solo! \#2019GantiPresiden \#2019PrabowoPresidenSaya hadir di kunjungan ke Balikpapan 25 Nov. Saya bukan anggota partai. Ribuan hadir banyakan simpatisan. Pak PS mencontohkan soal ketimpangan sosial dan menyebut  "tampang2 kayak kalian ini ..". Semua terbahak dan nggak baper. Malah berteriak \#2019PrabowoPresiden ! 😎 2019 PRESIDEN BARU INSYAA ALLAH USIR SELURUH TKA CINA KAFIR KOMUNIS DI SELURUH INDONESIA HARGA MATI!!!!DEMI MASYARAKAT ADIL \& MAKMUR LEPAS DARI ANCAMAN CINA KAFIR KOMUNIS!!!YG SANGAT NAFSU MAU JAJAH INDON!!!!Sering dibohongi. Sering dikhianati. Tapi. Tetap sabar. Tiada henti ikhtiar membela rakyat berjuang mewujudkan Indonesia \#AdilDanMakmur. Selamat! Anda Pak prabowo yg kami butuhkan. Dan akan kami pilih utk menjadi Presiden RI Ke 8. \#2019GantiPresiden. \#2019PrabowoSandiHadir MPD GRPG JAMBI BENGKULU LAMPUNG KALTENG. DKI JABAR Dan BANTEN{\ldots} RELAWAN GRPG SIAP MEMENANGKAN BAPAK PRABOWO PRESIDEN Di 2019. pilpres harus tetap santun.. mari doakan pak kyai segera sembuh. jasa beliau dalam kasus penistaan agama perlu kita apresiasi.  salam hormat pak kyai.. semoga Allah berikan berkah di hari tuamu.. aamiin saya pilih Prabowo-Sandiaga Uno. \#2019GantiPresiden Saya ga ada kaitannya sama cebong2an urusan saya di DPRD nanti sama gubernur DKI dan saya tetep \#2019GantiPresiden ogah ama yg plangah plongo tukang kibul \& saya bukan cebong dunguCebong juga takut dg kata \textbackslash{}'Komunis\textbackslash{}' \textbackslash{}'PKI\textbackslash{}' seakan-akan diantara mereka memang ada yg berafiliasi dg ideologi tersebut..  \#2019GantiPresidenJkW orang baik saya yakin itu! Ada kiasan  cerdik bagaikan ular tulus bagai merpati! Politik membuat pak JkW harus seperti ular tapi hatinya tetap tulus buat rakyat Indonesia! Singkirkan egomu dan dukung terus. \#Jokowi2Periode'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}250}]:} \PY{n}{net}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}250}]:} "Pemilu serentak 2019 Presiden Jokowi mengajak rakyat Indonesia menyambut pesta demokrasi itu dengan kegembiraan antusiasme yang tinggi serta kedewasaan politik yang semakin matang. \#SetujuPemiluBersihsaya benar-benar menginginkan Papua yang damai dan sejujurnya para anggota. OPM ataupun simpatisannya selalu menentang usaha-usaha menuju Papua yang damai. \#westpapua \#freewestpapua \#letwestpapuavote \#fwpc. \#LawanGerakanSeparatis West Papua. \#2019GantiPresidenInsya Alloh dengan ijin Allah dan Ridho Allah \#2019GantiPresiden \#2019PrabowoSandiMenang \#2019PrabowoPresiden \#IndonesiaAdilMakmur dan aman sentosa berdasarkan Pantjasila dan UUD1945 serta tegak Nkri tanpa komunis dan kroni2nya seperti aseng dan pengkianat NKRI juga JIL Syi'ahAku \#SetujuPemiluBersih agar roda perekonomian tetap jalan dan stabil kita semua rakyat Indonesia dapat jalani hidup keseharian dengan damai dan rukunSalah satu upaya menciptakan Pemilu yang damai itu berkampanye dengan cara fokus pada hal yang positif-positif aja  Siapapun yang terpilih akan memberikan yang terbaik untuk Indonesia tercinta ini. \#SetujuPemiluBersihKita semua \#SetujuPemiluBersih untuk Indonesia Maju. Damai itu indah. Pemilu yang bersih akan melahirkan pemimpin bersih pemimpin bersih akan menjalankan pemerintahan bersih \#SetujuPemiluBersihKarena itu berbagai simpul masyarakat yang peduli terhadap terciptanya pemilu yang jujur dan bersih perlu menunjukkan peran serta aktif untuk ikut mengupayakan sosialisasi dan peningkatan kemampuan pengawasan oleh rakyat.\#SetujuPemiluBersihIni berarti mayoritas masyarakat menginginkan agar pemilu harus menjadi kontestasi politik yang bersih. Maka dari itu faktor transparansi akuntabilitas dan kejujuran menjadi harga mati jika semua pihak menginginkan Pemilu berlangsung secara bersih dan demokratis. \#SetujuPemiluBersih"
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}251}]:} \PY{n}{neg}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}251}]:} 'Love you full Presiden Jokowi \#Jokowi2Periode \#Jokowi2Periode \#jokowi2periode \#2019tetapjokowiPak Jokowi menjadi presiden pertama yang berani tenggelamkan kapal pencuri ikan di Laut Indonesia. \#HAMuntukKehidupan \#01IndonesiaMaju \#2019KalahLagiGoblok presiden di indonesia ini kalo ngomong memang harus dipikir dulu lah soalnya di indonesia banyak orang pintar yang tahynya memutarbalikkan fakta{\ldots} Emang lo uda buat apa buat indonesiaaaaa. Hidup jokowi..Terserah lo mau ngomong apa faktanya Joko Widodo itu Presiden RI sekaligus panglima tertinggi Tentara Nasional Indonesia. Sedang wowo ga lebih dari seorang tentara yg pangkatnya dikatrol krn mantu suharto dan saat ini statusnya pecatan tentara. 😂😂😂😂😂Kepintaran kecerdasan kewibawaan mrpkn salah 1 modal utk menegakkan Indonesia d International Bandingkan mn yg menguasai masalah \& mana yg melemparkan masalah .. Rakyat cerdas akan pandai memilih \#Jokowi2Periode  \#JokowiMembangunIndonesia  \#2019GantiPresiden  \#2019PrabowoSandiHebat  Jaman Jokowi semua diperhatikan Tak luput para Veteran pun mendapat perhatian dgn menaikan tunjangan agar mereka dapat menikmati dn merasakan kesejahtraan dimasa tua nya kurang apa lagi dari jokowi ..  \#Jokowi2Periode  \#JokowiMarufAmin2019'
+\end{Verbatim}
+            
+    \subsection{Validasi Data Dengan
+Pyplot}\label{validasi-data-dengan-pyplot}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}256}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k}{def} \PY{n+nf}{PieChart}\PY{p}{(}\PY{n}{score}\PY{p}{,} \PY{n}{labels}\PY{p}{)} \PY{p}{:}
+              \PY{n}{fig1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+              \PY{n}{fig1}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{pie}\PY{p}{(}\PY{n}{score}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{labels}\PY{p}{,} \PY{n}{autopct} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZam{}1.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{startangle} \PY{o}{=} \PY{l+m+mi}{140}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+              \PY{k}{return} \PY{k+kc}{None}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}257}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{sentimen\PYZus{}sent} \PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+              \PY{n}{score\PYZus{}sentimen\PYZus{}sent} \PY{o}{=} \PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{k+kc}{True} \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{sentimen\PYZus{}sent} \PY{k}{if} \PY{n}{t}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{k+kc}{True} \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{sentimen\PYZus{}sent} \PY{k}{if} \PY{n}{t} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{k+kc}{True} \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{sentimen\PYZus{}sent} \PY{k}{if} \PY{n}{t}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{net}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{score\PYZus{}sentimen\PYZus{}sent}\PY{p}{)}
+          \PY{n}{label\PYZus{}se} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{positif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{negatif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{netral}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{PieChart}\PY{p}{(}\PY{n}{score\PYZus{}sentimen\PYZus{}sent}\PY{p}{,} \PY{n}{label\PYZus{}se}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+pos
+pos
+neg
+pos
+neg
+neg
+pos
+neg
+net
+pos
+net
+pos
+net
+pos
+pos
+net
+net
+net
+net
+net
+net
+net
+pos
+neg
+neg
+[9, 6, 10]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
